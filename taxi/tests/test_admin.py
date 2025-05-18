@@ -52,8 +52,7 @@ class CarAdminSiteTests(TestCase):
         res = self.client.get(url, {"q": "model"})
         self.assertContains(res, self.car.model)
 
-    def test_car_lisr_filter_by_manufacturer(self):
+    def test_car_list_filter_by_manufacturer(self):
         url = reverse("admin:taxi_car_changelist")
         res = self.client.get(url, {"manufacturer__id__exact": self.car.manufacturer.id})
         self.assertContains(res, self.car.model)
-        

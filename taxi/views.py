@@ -39,17 +39,17 @@ class ManufacturerListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
 
     def get_context_data(self, **kwargs):
-        context = super(ManufacturerListView, self).get_context_data()
-        title = self.request.GET.get("title", "")
-        context["search_form"] = CarSearchForm(
-            initial={"title":title}
+        context = super(ManufacturerListView, self).get_context_data
+        model = self.request.GET.get("title", "")
+        context["search_form"] = ManufacturerSearchForm(
+            initial={"model":model}
         )
         return context
 
     def get_queryset(self):
         form = ManufacturerSearchForm(self.request.GET)
         if form.is_valid():
-            return self.queryset.filter(title__icontains=form.cleaned_data["title"])
+            return self.queryset.filter(model__icontains=form.cleaned_data["title"])
         return self.queryset
 
 
@@ -77,16 +77,16 @@ class CarListView(LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(CarListView, self).get_context_data()
-        title = self.request.GET.get("title", "")
+        car = self.request.GET.get("car", "")
         context["search_form"] = CarSearchForm(
-            initial={"title":title}
+            initial={"car":car}
         )
         return context
 
     def get_queryset(self):
         form = CarSearchForm(self.request.GET)
         if form.is_valid():
-            return self.queryset.filter(title__icontains=form.cleaned_data["title"])
+            return self.queryset.filter(car__icontains=form.cleaned_data["title"])
         return self.queryset
 
 
@@ -117,16 +117,16 @@ class DriverListView(LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(DriverListView, self).get_context_data()
-        title = self.request.GET.get("title", "")
+        username = self.request.GET.get("username", "")
         context["search_form"] = DriverSearchForm(
-            initial={"title":title}
+            initial={"username":username}
         )
         return context
 
     def get_queryset(self):
         form = DriverSearchForm(self.request.GET)
         if form.is_valid():
-            return self.queryset.filter(title__icontains=form.cleaned_data["title"])
+            return self.queryset.filter(username__icontains=form.cleaned_data["title"])
         return self.queryset
 
 
